@@ -1,6 +1,6 @@
 export const authSections = [
     {
-        id: 'sec-1',
+        id: 'sec-19',
         category: 'auth',
         number: '1',
         title: 'Authentication & Authorization Fundamentals',
@@ -18,7 +18,7 @@ export const authSections = [
 
         cards: [
             {
-                id: '1-A',
+                id: '19-A',
                 letter: 'A',
                 title: 'What is Authentication?',
 
@@ -33,7 +33,7 @@ export const authSections = [
             },
 
             {
-                id: '1-B',
+                id: '19-B',
                 letter: 'B',
                 title: 'What is Authorization?',
 
@@ -48,7 +48,7 @@ export const authSections = [
             },
 
             {
-                id: '1-C',
+                id: '19-C',
                 letter: 'C',
                 title: 'Authentication vs Authorization',
 
@@ -81,7 +81,7 @@ export const authSections = [
             },
 
             {
-                id: '1-D',
+                id: '19-D',
                 letter: 'D',
                 title: 'Basic Authentication Flow',
 
@@ -101,7 +101,7 @@ export const authSections = [
             },
 
             {
-                id: '1-E',
+                id: '19-E',
                 letter: 'E',
                 title: 'Passwords & Password Hashing',
 
@@ -132,7 +132,7 @@ console.log(isMatch); // true`
             },
 
             {
-                id: '1-F',
+                id: '19-F',
                 letter: 'F',
                 title: 'HTTP Status Codes for Authentication',
 
@@ -165,7 +165,7 @@ console.log(isMatch); // true`
             },
 
             {
-                id: '1-G',
+                id: '19-G',
                 letter: 'G',
                 title: 'Important Security Rules',
 
@@ -184,7 +184,7 @@ console.log(isMatch); // true`
     },
 
     {
-        id: 'sec-2',
+        id: 'sec-20',
         category: 'auth',
         number: '2',
         title: 'Session-Based Authentication & Cookies',
@@ -202,7 +202,7 @@ console.log(isMatch); // true`
 
         cards: [
             {
-                id: '2-A',
+                id: '20-A',
                 letter: 'A',
                 title: 'What is a Session?',
 
@@ -217,7 +217,7 @@ console.log(isMatch); // true`
             },
 
             {
-                id: '2-B',
+                id: '20-B',
                 letter: 'B',
                 title: 'Session Authentication Flow',
 
@@ -239,7 +239,7 @@ console.log(isMatch); // true`
             },
 
             {
-                id: '2-C',
+                id: '20-C',
                 letter: 'C',
                 title: 'Cookie Basics',
 
@@ -260,7 +260,7 @@ console.log(isMatch); // true`
             },
 
             {
-                id: '2-D',
+                id: '20-D',
                 letter: 'D',
                 title: 'Important Cookie Security Flags',
 
@@ -293,7 +293,7 @@ console.log(isMatch); // true`
             },
 
             {
-                id: '2-E',
+                id: '20-E',
                 letter: 'E',
                 title: 'Express Session Example',
 
@@ -330,7 +330,7 @@ app.post('/login', async (req, res) => {
             },
 
             {
-                id: '2-F',
+                id: '20-F',
                 letter: 'F',
                 title: 'Session Logout',
 
@@ -359,7 +359,7 @@ app.post('/login', async (req, res) => {
             },
 
             {
-                id: '2-G',
+                id: '20-G',
                 letter: 'G',
                 title: 'Advantages / Disadvantages',
 
@@ -383,7 +383,7 @@ app.post('/login', async (req, res) => {
     },
 
     {
-        id: 'sec-3',
+        id: 'sec-21',
         category: 'auth',
         number: '3',
         title: 'Token-Based Authentication & JWT',
@@ -401,7 +401,7 @@ app.post('/login', async (req, res) => {
 
         cards: [
             {
-                id: '3-A',
+                id: '21-A',
                 letter: 'A',
                 title: 'What is JWT?',
 
@@ -416,7 +416,7 @@ app.post('/login', async (req, res) => {
             },
 
             {
-                id: '3-B',
+                id: '21-B',
                 letter: 'B',
                 title: 'JWT Structure',
 
@@ -445,7 +445,7 @@ signature`,
             },
 
             {
-                id: '3-C',
+                id: '21-C',
                 letter: 'C',
                 title: 'Creating a JWT',
 
@@ -475,7 +475,7 @@ res.json({ token });`,
             },
 
             {
-                id: '3-D',
+                id: '21-D',
                 letter: 'D',
                 title: 'Verifying a JWT',
 
@@ -502,7 +502,7 @@ try {
             },
 
             {
-                id: '3-E',
+                id: '21-E',
                 letter: 'E',
                 title: 'Access Token with Bearer Authentication',
 
@@ -525,7 +525,7 @@ try {
             },
 
             {
-                id: '3-F',
+                id: '21-F',
                 letter: 'F',
                 title: 'JWT Middleware in Express',
 
@@ -568,7 +568,7 @@ function requireAuth(req, res, next) {
             },
 
             {
-                id: '3-G',
+                id: '21-G',
                 letter: 'G',
                 title: 'Advantages / Disadvantages',
 
@@ -593,7 +593,7 @@ function requireAuth(req, res, next) {
     },
 
     {
-        id: 'sec-4',
+        id: 'sec-22',
         category: 'auth',
         number: '4',
         title: 'Access Tokens, Refresh Tokens & Token Rotation',
@@ -611,7 +611,7 @@ function requireAuth(req, res, next) {
 
         cards: [
             {
-                id: '4-A',
+                id: '22-A',
                 letter: 'A',
                 title: 'Why Use Access + Refresh Tokens?',
 
@@ -626,7 +626,7 @@ function requireAuth(req, res, next) {
             },
 
             {
-                id: '4-B',
+                id: '22-B',
                 letter: 'B',
                 title: 'Access Token vs Refresh Token',
 
@@ -655,7 +655,7 @@ function requireAuth(req, res, next) {
             },
 
             {
-                id: '4-C',
+                id: '22-C',
                 letter: 'C',
                 title: 'Login with Access & Refresh Tokens',
 
@@ -688,7 +688,7 @@ res
             },
 
             {
-                id: '4-D',
+                id: '22-D',
                 letter: 'D',
                 title: 'Refreshing an Access Token',
 
@@ -725,7 +725,7 @@ res
             },
 
             {
-                id: '4-E',
+                id: '22-E',
                 letter: 'E',
                 title: 'Refresh Token Rotation',
 
@@ -740,7 +740,7 @@ res
             },
 
             {
-                id: '4-F',
+                id: '22-F',
                 letter: 'F',
                 title: 'Logout & Token Revocation',
 
@@ -754,7 +754,7 @@ res
             },
 
             {
-                id: '4-G',
+                id: '22-G',
                 letter: 'G',
                 title: 'Common Token Architecture',
 
@@ -777,7 +777,7 @@ res
     },
 
     {
-        id: 'sec-5',
+        id: 'sec-23',
         category: 'auth',
         number: '5',
         title: 'Authorization, Roles, Permissions & RBAC',
@@ -795,7 +795,7 @@ res
 
         cards: [
             {
-                id: '5-A',
+                id: '23-A',
                 letter: 'A',
                 title: 'What is Authorization?',
 
@@ -809,7 +809,7 @@ res
             },
 
             {
-                id: '5-B',
+                id: '23-B',
                 letter: 'B',
                 title: 'Role-Based Access Control (RBAC)',
 
@@ -836,7 +836,7 @@ admin     → manage users + system`
             },
 
             {
-                id: '5-C',
+                id: '23-C',
                 letter: 'C',
                 title: 'Role-Based Authorization Middleware',
 
@@ -874,7 +874,7 @@ app.delete(
             },
 
             {
-                id: '5-D',
+                id: '23-D',
                 letter: 'D',
                 title: 'Permission-Based Authorization',
 
@@ -908,7 +908,7 @@ app.delete(
             },
 
             {
-                id: '5-E',
+                id: '23-E',
                 letter: 'E',
                 title: 'Resource Ownership',
 
@@ -939,7 +939,7 @@ if (
             },
 
             {
-                id: '5-F',
+                id: '23-F',
                 letter: 'F',
                 title: '401 vs 403',
 
@@ -968,7 +968,7 @@ if (
             },
 
             {
-                id: '5-G',
+                id: '23-G',
                 letter: 'G',
                 title: 'Authorization Best Practices',
 
@@ -986,7 +986,7 @@ if (
     },
 
     {
-        id: 'sec-6',
+        id: 'sec-24',
         category: 'auth',
         number: '6',
         title: 'Complete Authentication & Authorization System',
@@ -1004,7 +1004,7 @@ if (
 
         cards: [
             {
-                id: '6-A',
+                id: '24-A',
                 letter: 'A',
                 title: 'Complete Register Flow',
 
@@ -1056,7 +1056,7 @@ if (
             },
 
             {
-                id: '6-B',
+                id: '24-B',
                 letter: 'B',
                 title: 'Complete Login Flow',
 
@@ -1101,7 +1101,7 @@ if (
             },
 
             {
-                id: '6-C',
+                id: '24-C',
                 letter: 'C',
                 title: 'Protected Route Architecture',
 
@@ -1140,7 +1140,7 @@ app.delete(
             },
 
             {
-                id: '6-D',
+                id: '24-D',
                 letter: 'D',
                 title: 'Security Best Practices',
 
@@ -1163,7 +1163,7 @@ app.delete(
             },
 
             {
-                id: '6-E',
+                id: '24-E',
                 letter: 'E',
                 title: 'Common Authentication Attacks',
 
@@ -1196,7 +1196,7 @@ app.delete(
             },
 
             {
-                id: '6-F',
+                id: '24-F',
                 letter: 'F',
                 title: 'Authentication Architecture Comparison',
 
@@ -1221,7 +1221,7 @@ app.delete(
             },
 
             {
-                id: '6-G',
+                id: '24-G',
                 letter: 'G',
                 title: 'Final Authentication & Authorization Flow',
 
@@ -1246,7 +1246,7 @@ app.delete(
             },
 
             {
-                id: '6-H',
+                id: '24-H',
                 letter: 'H',
                 title: 'Important Mental Model',
 
