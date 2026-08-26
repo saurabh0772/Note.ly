@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, ArrowRight, X, Layers, Zap, BookOpen, Route, Database, Sparkles } from 'lucide-react';
+import { Search, ArrowRight, X, Layers, Zap, BookOpen, Route, Database, Sparkles, Lock } from 'lucide-react';
 import Logo from './Logo';
 
 export default function CategorySelectionPage({
@@ -44,6 +44,17 @@ export default function CategorySelectionPage({
           tagBg: 'bg-amber-100/80 text-amber-800 border-amber-200',
           buttonBg: 'group-hover:bg-amber-600 group-hover:text-white',
           icon: <Route className="w-7 h-7 text-amber-600" />
+        };
+      case 'purple':
+        return {
+          border: 'border-purple-200 hover:border-purple-400',
+          bg: 'bg-gradient-to-br from-purple-50/90 via-white to-fuchsia-50/60',
+          badgeBg: 'bg-purple-600 text-white',
+          titleColor: 'text-purple-950',
+          numColor: 'text-purple-500',
+          tagBg: 'bg-purple-100/80 text-purple-800 border-purple-200',
+          buttonBg: 'group-hover:bg-purple-600 group-hover:text-white',
+          icon: <Lock className="w-7 h-7 text-purple-600" />
         };
       case 'teal':
       default:
@@ -106,7 +117,7 @@ export default function CategorySelectionPage({
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search all 18 topics, code, methods (e.g. aggregate, app.use, fs.readFile)..."
+              placeholder="Search all 24 topics, code, methods (e.g. JWT, RBAC, app.use, fs.readFile)..."
               className="w-full pl-12 pr-10 py-3.5 text-sm bg-white border border-slate-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder:text-slate-400"
             />
             {searchTerm && (

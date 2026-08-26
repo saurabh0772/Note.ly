@@ -2,8 +2,9 @@ import { asyncSections } from './asyncData.js';
 import { coreModulesSections } from './coreModulesData.js';
 import { expressSections } from './expressData.js';
 import { mongodbSections } from './mongodbData.js';
+import { authSections } from './authenticationAuthorizationData.js';
 
-export { asyncSections, coreModulesSections, expressSections, mongodbSections };
+export { asyncSections, coreModulesSections, expressSections, mongodbSections, authSections };
 
 export const mindmapData = {
   categories: [
@@ -46,11 +47,21 @@ export const mindmapData = {
       color: 'teal',
       topicCount: 6,
       tags: ['MongoDB BSON', 'Mongoose Schema', 'Populate', 'Transactions']
+    },
+    {
+      id: 'auth',
+      number: '05',
+      title: 'Authentication & Authorization',
+      subtitle: 'Identity Verification, JWTs, Sessions & RBAC',
+      description: 'Master Authentication vs Authorization, Session cookies, JWT access & refresh tokens, token rotation, RBAC, and production security flows.',
+      color: 'purple',
+      topicCount: 6,
+      tags: ['JWT', 'Sessions', 'Cookies', 'RBAC', 'Access & Refresh Tokens', 'Password Hashing']
     }
   ],
   root: {
     id: 'root',
-    title: 'Node.js, Express & MongoDB Stack Architecture',
+    title: 'Node.js, Express, MongoDB & Auth Architecture',
     topics: [
       'Callbacks & Callback Hell',
       'Promises & Async/Await',
@@ -69,13 +80,20 @@ export const mindmapData = {
       'MongoDB Advanced Queries & Aggregation',
       'Mongoose Overview, Schema & Model',
       'Mongoose Operations, Validation & Hooks',
-      'Relationships, Transactions & Best Practices'
+      'Relationships, Transactions & Best Practices',
+      'Authentication & Authorization Fundamentals',
+      'Session-Based Authentication & Cookies',
+      'Token-Based Authentication & JWT',
+      'Access Tokens, Refresh Tokens & Token Rotation',
+      'Authorization, Roles, Permissions & RBAC',
+      'Complete Authentication & Authorization System'
     ]
   },
   sections: [
     ...asyncSections,
     ...coreModulesSections,
     ...expressSections,
-    ...mongodbSections
+    ...mongodbSections,
+    ...authSections
   ]
 };

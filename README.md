@@ -9,7 +9,7 @@
 </h3>
 
 <p align="center">
-  A high-fidelity, interactive 3-tier visual documentation platform that turns complex backend architecture infographics into clean, responsive developer mindmaps with live code snippets, copy buttons, and flow diagrams.
+  A high-fidelity, interactive 3-tier visual documentation platform that turns complex backend architecture infographics into clean, responsive developer mindmaps with live code snippets, copy buttons, flow diagrams, and protected analytics.
 </p>
 
 ---
@@ -17,22 +17,24 @@
 ## 🌟 Key Features
 
 - **3-Tier Navigation Architecture**:
-  - **Stage 1 (Home Landing Page)**: Displays Category Cards only (`Async Fundamentals`, `Core Modules`, `Express.js Framework`, `MongoDB & Mongoose`).
+  - **Stage 1 (Home Landing Page)**: Displays Category Cards only (`Async Fundamentals`, `Core Modules`, `Express.js Framework`, `MongoDB & Mongoose`, `Authentication & Authorization`).
   - **Stage 2 (Category View)**: Displays the grid of mindmap topic cards belonging to the selected category with a `← Back to Categories` button.
   - **Stage 3 (Topic Detail View)**: Displays the multi-column block grid layout with code blocks, API tables, flow diagrams, and pros/cons tables.
 - **URL Hash Routing & Browser History**:
-  - Full support for browser back/forward buttons and mousepad/touchpad swipe-back gestures (`#/`, `#/category/:id`, `#/topic/:id`).
-  - Direct deep linking and bookmarking for all 18 topics.
+  - Full support for browser back/forward buttons and mousepad/touchpad swipe-back gestures (`#/`, `#/category/:id`, `#/topic/:id`, `#/admin`).
+  - Direct deep linking and bookmarking for all 24 topics.
 - **Global & Local Search**:
-  - Real-time search engine with keyword highlighting across all 18 topics, code blocks, and methods.
+  - Real-time search engine with keyword highlighting across all 24 topics, code blocks, signatures, and methods.
 - **1-Click Copy-to-Clipboard**:
   - Custom tokenized syntax highlighting for JavaScript code blocks with one-click copy buttons.
+- **Private Admin Analytics Dashboard**:
+  - Protected admin portal for owner analytics with JWT authentication, visitor tracking, search analytics, and activity charts.
 - **Zero Horizontal Overflow**:
   - Built with responsive Tailwind CSS containers (`max-w-7xl`, `overflow-x: hidden`), ensuring zero horizontal scroll across desktop, tablet, and mobile screens.
 
 ---
 
-## 📚 Mindmap Inventory (18 Topics across 4 Categories)
+## 📚 Mindmap Inventory (24 Topics across 5 Categories)
 
 ### Category 01: Async Fundamentals ⚡
 1. **Callbacks & Callback Hell** — Fundamentals, Pyramid of Doom, Problems, Characteristics, Pros/Cons.
@@ -60,14 +62,23 @@
 17. **Mongoose Ops, Validation & Hooks** — `user.save()`, `findByIdAndUpdate()`, Built-in & Custom Validators, Pre/Post Hooks Middleware, Virtuals, Static & Instance methods.
 18. **Relationships, Transactions & Best Practices** — Relationships & `.populate()`, Indexing in Mongoose, Transactions (`startSession`), `.lean()`, Best practices checklist, Folder structure, Database vs ODM comparison.
 
+### Category 05: Authentication & Authorization 🔐
+19. **Authentication & Authorization Fundamentals** — Authentication vs Authorization, Password hashing with bcrypt, HTTP status codes (401 vs 403), Basic auth flow, Important security rules.
+20. **Session-Based Authentication & Cookies** — Server sessions, Unique session IDs, Cookie security flags (`httpOnly`, `secure`, `sameSite`), `express-session`, Logout & session destruction.
+21. **Token-Based Authentication & JWT** — JSON Web Token structure (Header.Payload.Signature), `jwt.sign()`, `jwt.verify()`, Bearer authorization headers, Express JWT middleware.
+22. **Access Tokens, Refresh Tokens & Token Rotation** — Short-lived access tokens vs long-lived refresh tokens, Token refresh flow, Refresh Token Rotation, Revocation strategies.
+23. **Authorization, Roles, Permissions & RBAC** — Role-Based Access Control (RBAC), Permission-based authorization, Resource ownership checks, 401 vs 403 decision matrix.
+24. **Complete Authentication & Authorization System** — Complete Register & Login flows, Protected route architecture, Security attacks (Brute Force, XSS, CSRF, Token Theft), Mental model.
+
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: React 18
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
+- **Frontend**: React 18, Vite, Tailwind CSS
+- **Backend / API**: Express 5, Node.js (Vercel Serverless Function entry point in `api/index.js`)
+- **Database & ODM**: MongoDB, Mongoose ODM
+- **Authentication**: JSON Web Tokens (`jsonwebtoken`), `bcryptjs`, Cookie Parser
+- **Icons & Charts**: Lucide React, Recharts
 - **Typography**: Inter & Fira Code (Google Fonts)
 
 ---
@@ -81,20 +92,26 @@ cd Notes
 npm install
 ```
 
-### 2. Run Development Server
+### 2. Configure Environment Variables
+Create a `.env` file in the root directory (refer to `.env.example`):
+```env
+PORT=3001
+NODE_ENV=development
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/notely
+JWT_SECRET=your_super_secret_jwt_key
+ADMIN_EMAIL=admin@notely.com
+ADMIN_PASSWORD=adminpassword123
+```
+
+### 3. Run Development Server
 ```bash
 npm run dev
 ```
 Open `http://localhost:5173/` in your browser.
 
-### 3. Build for Production
+### 4. Build for Production
 ```bash
 npm run build
-```
-
-### 4. Preview Production Build
-```bash
-npm run preview
 ```
 
 ---
@@ -103,24 +120,38 @@ npm run preview
 
 ```text
 Notes/
-├── public/
-│   └── favicon.svg               # Note.ly SVG Favicon Mark
+├── api/
+│   └── index.js                      # Vercel Serverless Function entry point
+├── server/
+│   ├── index.js                      # Express Server & MongoDB Connection
+│   ├── models/                       # Mongoose Schemas (Admin, AnalyticsEvent)
+│   ├── routes/                       # Express Route Handlers (adminAuth, admin, events)
+│   └── middleware/                   # JWT Auth & Validation Middleware
 ├── src/
 │   ├── components/
-│   │   ├── Logo.jsx              # Reusable Note.ly Brand Logo Component
-│   │   ├── CategorySelectionPage.jsx # Stage 1 Landing Page (4 Categories)
+│   │   ├── Logo.jsx                  # Note.ly Brand Logo Component
+│   │   ├── CategorySelectionPage.jsx # Stage 1 Landing Page (5 Categories)
 │   │   ├── TopicSelectionPage.jsx    # Stage 2 Category Topic Grid
 │   │   ├── TopicDetailPage.jsx       # Stage 3 Topic Detail View
-│   │   ├── BlockCard.jsx         # Card renderer for code, tables & flows
-│   │   └── CodeBlock.jsx         # Tokenized Syntax Highlighter & Copy Button
+│   │   ├── BlockCard.jsx             # Card renderer for code, tables & flows
+│   │   ├── CodeBlock.jsx             # Tokenized Syntax Highlighter & Copy Button
+│   │   └── admin/                    # Admin Dashboard Components & Analytics Tabs
+│   ├── context/
+│   │   └── AdminAuthContext.jsx      # Admin Auth Context Controller
 │   ├── data/
-│   │   └── mindmapData.js        # Data source for all 18 topics
-│   ├── App.jsx                   # Main Router & State Controller
-│   ├── main.jsx                  # React Entry Point
-│   └── index.css                 # Tailwind CSS & Global Styles
-├── index.html                    # HTML Shell & Fonts
+│   │   ├── asyncData.js              # Category 01 Data
+│   │   ├── coreModulesData.js        # Category 02 Data
+│   │   ├── expressData.js            # Category 03 Data
+│   │   ├── mongodbData.js            # Category 04 Data
+│   │   ├── authenticationAuthorizationData.js # Category 05 Data
+│   │   └── mindmapData.js            # Central Data Aggregator (24 Topics)
+│   ├── utils/
+│   │   └── analytics.js              # Client Event Tracker Utility
+│   ├── App.jsx                       # Main Hash Router & View Controller
+│   ├── main.jsx                      # React Entry Point
+│   └── index.css                     # Tailwind CSS & Global Styles
+├── vercel.json                       # Vercel Serverless Rewrites & Routing
 ├── package.json
-├── tailwind.config.js
 └── README.md
 ```
 
@@ -129,3 +160,4 @@ Notes/
 <p align="center">
   Designed & Built with ❤️ for Developers • <b>Note.ly</b>
 </p>
+
