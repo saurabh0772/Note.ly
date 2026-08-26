@@ -27,9 +27,8 @@ export async function connectDB() {
   let uri = process.env.MONGODB_URI;
 
   if (!uri) {
-    if (process.env.NODE_ENV === 'production') {
-      console.error('FATAL ERROR: MONGODB_URI environment variable is missing in production!');
-      process.exit(1);
+    if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+      throw new Error('MONGODB_URI environment variable is missing in Vercel settings. Please add MONGODB_URI in Vercel project environment variables.');
     } else {
       console.log('Local dev: MONGODB_URI missing. Starting mongodb-memory-server...');
       const { MongoMemoryServer } = await import('mongodb-memory-server');
@@ -39,33 +38,21 @@ export async function connectDB() {
     }
   }
 
-  await mongoose.connect(uri);
-  isConnected = true;
-  console.log('MongoDB connected successfully.');
-
-  await seedAdminAccount();
+  try {
+    await mongoose.connect(uri);
+    isConnected = true;
+    console.log('MongoDB connected successfully.');
+    await seedAdminAccount();
+  } catch (err) {
+    isConnected = false;
+    throw new Error(`MongoDB Connection Error: ${err.message}. Ensure IP access 0.0.0.0/0 is allowed in MongoDB Atlas.`);
+  }
 }
 
 async function seedAdminAccount() {
   try {
-    const adminEmail = process.env.ADMIN_EMAIL;
-    const adminPassword = process.env.ADMIN_PASSWORD;
-
-    if (!adminEmail || !adminPassword) {
-      if (process.env.NODE_ENV !== 'production') {
-        const defaultEmail = 'admin@notely.com';
-        const existingDefault = await Admin.findOne({ email: defaultEmail });
-        if (!existingDefault) {
-          const hashedPassword = await bcrypt.hash('adminpassword123', 10);
-          await Admin.create({
-            email: defaultEmail,
-            password: hashedPassword
-          });
-          console.log(`[Dev Seed] Admin created: ${defaultEmail} / adminpassword123`);
-        }
-      }
-      return;
-    }
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@notely.com';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'adminpassword123';
 
     const cleanEmail = adminEmail.toLowerCase().trim();
     const existing = await Admin.findOne({ email: cleanEmail });
@@ -77,8 +64,6 @@ async function seedAdminAccount() {
         password: hashedPassword
       });
       console.log(`Admin account seeded for: ${cleanEmail}`);
-    } else {
-      console.log(`Admin account ${cleanEmail} already exists. Skipping password overwrite.`);
     }
   } catch (err) {
     console.error('Failed to seed admin account:', err.message);

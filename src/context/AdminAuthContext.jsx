@@ -43,7 +43,15 @@ export function AdminAuthProvider({ children }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
-    const data = await res.json();
+    
+    let data;
+    const text = await res.text();
+    try {
+      data = JSON.parse(text);
+    } catch (err) {
+      throw new Error(`Server returned HTTP ${res.status}. Please ensure MONGODB_URI is set in Vercel settings.`);
+    }
+
     if (!data.success) {
       throw new Error(data.message || 'Admin authentication failed');
     }
