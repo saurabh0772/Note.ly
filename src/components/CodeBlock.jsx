@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
+import { trackEvent } from '../utils/analytics';
 
 export default function CodeBlock({ code, title }) {
   const [copied, setCopied] = useState(false);
@@ -9,6 +10,11 @@ export default function CodeBlock({ code, title }) {
     navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+
+    // Track analytics event
+    trackEvent('CODE_COPIED', {
+      metadata: { title: title || 'code-snippet' }
+    });
   };
 
   const renderHighlightedLine = (line, lineIdx) => {
@@ -29,7 +35,6 @@ export default function CodeBlock({ code, title }) {
     }
 
     // Simple robust tokenizer for JS code part
-    // Tokens: strings, keywords, builtins, numbers, identifiers/punctuation
     const tokenRegex = /('.*?'|".*?"|`.*?`|\b(?:const|let|var|function|async|await|try|catch|finally|if|else|return|new|require)\b|\b(?:resolve|reject|then|catch|finally|readFile|log|error|on|once|emit|off|removeAllListeners|listenerCount|eventNames)\b|\b\d+\b|[a-zA-Z_$][a-zA-Z0-9_$]*|[^\s\w])/g;
 
     const keywords = new Set(['const', 'let', 'var', 'function', 'async', 'await', 'try', 'catch', 'finally', 'if', 'else', 'return', 'new', 'require']);
@@ -41,7 +46,6 @@ export default function CodeBlock({ code, title }) {
     let match;
 
     while ((match = tokenRegex.exec(codePart)) !== null) {
-      // Non-matching whitespace before token
       if (match.index > lastIdx) {
         tokens.push({ text: codePart.substring(lastIdx, match.index), type: 'plain' });
       }

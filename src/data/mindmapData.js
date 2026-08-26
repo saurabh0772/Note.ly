@@ -1,7 +1,7 @@
-import { asyncSections } from './asyncData';
-import { coreModulesSections } from './coreModulesData';
-import { expressSections } from './expressData';
-import { mongodbSections } from './mongodbData';
+import { asyncSections } from './asyncData.js';
+import { coreModulesSections } from './coreModulesData.js';
+import { expressSections } from './expressData.js';
+import { mongodbSections } from './mongodbData.js';
 
 export { asyncSections, coreModulesSections, expressSections, mongodbSections };
 

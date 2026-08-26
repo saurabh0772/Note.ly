@@ -2,17 +2,24 @@ import React, { useState, useEffect, useMemo } from 'react';
 import CategorySelectionPage from './components/CategorySelectionPage';
 import TopicSelectionPage from './components/TopicSelectionPage';
 import TopicDetailPage from './components/TopicDetailPage';
+import AdminDashboard from './components/admin/AdminDashboard';
 import { mindmapData } from './data/mindmapData';
+import { trackEvent } from './utils/analytics';
 
 export default function App() {
-  const [activeView, setActiveView] = useState('categories'); // 'categories' | 'topics' | 'detail'
+  const [activeView, setActiveView] = useState('categories'); // 'categories' | 'topics' | 'detail' | 'admin'
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedTopicId, setSelectedTopicId] = useState('sec-1');
   const [searchTerm, setSearchTerm] = useState('');
 
   // Synchronize component state with window.location.hash
   const syncStateFromHash = () => {
-    const hash = window.location.hash; // e.g. '#/category/express' or '#/topic/sec-14'
+    const hash = window.location.hash; // e.g. '#/category/express', '#/topic/sec-14', '#/admin'
+
+    if (hash.startsWith('#/admin')) {
+      setActiveView('admin');
+      return;
+    }
 
     if (hash.startsWith('#/topic/')) {
       const topicId = hash.replace('#/topic/', '');
@@ -22,6 +29,17 @@ export default function App() {
         const cat = mindmapData.categories.find((c) => c.id === sec.category);
         if (cat) setSelectedCategory(cat);
         setActiveView('detail');
+
+        // Anonymous Analytics Tracking (NO login required)
+        trackEvent('TOPIC_VIEWED', {
+          topicId: sec.id,
+          categoryId: sec.category,
+          metadata: { title: sec.title }
+        });
+        trackEvent('MINDMAP_OPENED', {
+          topicId: sec.id,
+          categoryId: sec.category
+        });
         return;
       }
     }
@@ -32,11 +50,17 @@ export default function App() {
       if (cat) {
         setSelectedCategory(cat);
         setActiveView('topics');
+
+        // Anonymous Analytics Tracking (NO login required)
+        trackEvent('CATEGORY_VIEWED', {
+          categoryId: cat.id,
+          metadata: { title: cat.title }
+        });
         return;
       }
     }
 
-    // Default: Stage 1 Categories Landing Page
+    // Default: Stage 1 Categories Landing Page (100% Open & Public)
     setActiveView('categories');
     setSelectedCategory(null);
   };
@@ -53,6 +77,32 @@ export default function App() {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  // Track search query execution anonymously with debounce
+  useEffect(() => {
+    if (!searchTerm.trim()) return;
+    const timer = setTimeout(() => {
+      const query = searchTerm.toLowerCase();
+      let count = 0;
+      mindmapData.sections.forEach((sec) => {
+        if (
+          sec.title.toLowerCase().includes(query) ||
+          sec.description.toLowerCase().includes(query)
+        ) {
+          count++;
+        }
+      });
+
+      trackEvent('SEARCH_PERFORMED', {
+        metadata: {
+          query: searchTerm.trim(),
+          resultsCount: count
+        }
+      });
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   // Navigation handlers that update URL hash
   const handleSelectCategory = (categoryId) => {
@@ -106,6 +156,10 @@ export default function App() {
 
     return matches;
   }, [searchTerm]);
+
+  if (activeView === 'admin') {
+    return <AdminDashboard />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden selection:bg-blue-200">
