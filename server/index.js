@@ -30,11 +30,15 @@ export async function connectDB() {
     if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
       throw new Error('MONGODB_URI environment variable is missing in Vercel settings. Please add MONGODB_URI in Vercel project environment variables.');
     } else {
-      console.log('Local dev: MONGODB_URI missing. Starting mongodb-memory-server...');
-      const { MongoMemoryServer } = await import('mongodb-memory-server');
-      const mongod = await MongoMemoryServer.create();
-      uri = mongod.getUri();
-      console.log(`Local MongoMemoryServer connected at: ${uri}`);
+      try {
+        console.log('Local dev: MONGODB_URI missing. Starting mongodb-memory-server...');
+        const { MongoMemoryServer } = await import('mongodb-memory-server');
+        const mongod = await MongoMemoryServer.create();
+        uri = mongod.getUri();
+        console.log(`Local MongoMemoryServer connected at: ${uri}`);
+      } catch (e) {
+        throw new Error('MONGODB_URI environment variable is missing.');
+      }
     }
   }
 
