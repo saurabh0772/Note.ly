@@ -87,7 +87,7 @@
 
 ### 1. Clone & Install Dependencies
 ```bash
-git clone <repository-url>
+git clone https://github.com/saurabh0772/Note.ly.git
 cd Notes
 npm install
 ```
