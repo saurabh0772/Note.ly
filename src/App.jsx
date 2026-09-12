@@ -1,23 +1,42 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import Navbar from './components/Navbar';
+import NotelyLandingHome from './components/NotelyLandingHome';
+import PdfNotesPage from './components/PdfNotesPage';
+import MindMapExplorerPage from './components/MindMapExplorerPage';
 import CategorySelectionPage from './components/CategorySelectionPage';
 import TopicSelectionPage from './components/TopicSelectionPage';
 import TopicDetailPage from './components/TopicDetailPage';
 import AdminDashboard from './components/admin/AdminDashboard';
+import { AboutModal, ContactModal } from './components/InfoModals';
 import { mindmapData } from './data/mindmapData';
 import { trackEvent } from './utils/analytics';
 
 export default function App() {
-  const [activeView, setActiveView] = useState('categories'); // 'categories' | 'topics' | 'detail' | 'admin'
+  const [activeView, setActiveView] = useState('landing'); // 'landing' | 'pdf' | 'mindmap' | 'topics' | 'detail' | 'admin'
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedTopicId, setSelectedTopicId] = useState('sec-1');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAboutModal, setShowAboutModal] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   // Synchronize component state with window.location.hash
   const syncStateFromHash = () => {
-    const hash = window.location.hash; // e.g. '#/category/express', '#/topic/sec-14', '#/admin'
+    const hash = window.location.hash; // e.g. '#/', '#/pdf-notes', '#/mindmap', '#/category/express', '#/topic/sec-14', '#/admin'
 
     if (hash.startsWith('#/admin')) {
       setActiveView('admin');
+      return;
+    }
+
+    if (hash.startsWith('#/pdf-notes')) {
+      setActiveView('pdf');
+      setSelectedCategory(null);
+      return;
+    }
+
+    if (hash.startsWith('#/mindmap') || hash.startsWith('#/categories')) {
+      setActiveView('mindmap');
+      setSelectedCategory(null);
       return;
     }
 
@@ -60,8 +79,8 @@ export default function App() {
       }
     }
 
-    // Default: Stage 1 Categories Landing Page (100% Open & Public)
-    setActiveView('categories');
+    // Default: Notely Landing Home Page (Exact Reference Image Design)
+    setActiveView('landing');
     setSelectedCategory(null);
   };
 
@@ -113,15 +132,35 @@ export default function App() {
     window.location.hash = `#/topic/${topicId}`;
   };
 
-  const handleBackToCategories = () => {
+  const handleOpenPdfNotes = () => {
+    window.location.hash = '#/pdf-notes';
+  };
+
+  const handleOpenMindmap = () => {
+    window.location.hash = '#/mindmap';
+  };
+
+  const handleBackToHome = () => {
     window.location.hash = '#/';
   };
 
+  const handleBackToCategories = () => {
+    window.location.hash = '#/mindmap';
+  };
+
   const handleBackToTopics = () => {
-    if (selectedCategory) {
-      window.location.hash = `#/category/${selectedCategory.id}`;
-    } else {
+    window.location.hash = '#/mindmap';
+  };
+
+  const handleNavClick = (dest) => {
+    if (dest === 'home') {
       window.location.hash = '#/';
+    } else if (dest === 'topics') {
+      window.location.hash = '#/mindmap';
+    } else if (dest === 'about') {
+      setShowAboutModal(true);
+    } else if (dest === 'contact') {
+      setShowContactModal(true);
     }
   };
 
@@ -161,40 +200,69 @@ export default function App() {
     return <AdminDashboard />;
   }
 
+  const activeNav =
+    activeView === 'landing'
+      ? 'home'
+      : activeView === 'mindmap' || activeView === 'topics' || activeView === 'detail'
+      ? 'topics'
+      : 'home';
+
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden selection:bg-blue-200">
-      {activeView === 'categories' && (
-        <CategorySelectionPage
-          categories={mindmapData.categories}
-          sections={mindmapData.sections}
-          onSelectCategory={handleSelectCategory}
-          onSelectTopic={handleSelectTopic}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
-      )}
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden selection:bg-indigo-100 flex flex-col">
+      {/* Top Navbar matching the reference design */}
+      <Navbar activeNav={activeNav} onNavigate={handleNavClick} />
 
-      {activeView === 'topics' && (
-        <TopicSelectionPage
-          category={selectedCategory}
-          sections={mindmapData.sections}
-          onSelectTopic={handleSelectTopic}
-          onBackToCategories={handleBackToCategories}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          matchedIds={matchedIds}
-        />
-      )}
+      {/* Main Views */}
+      <main className="flex-1">
+        {/* Stage 1: Exact Notely Home Page Design from Image */}
+        {activeView === 'landing' && (
+          <NotelyLandingHome
+            onOpenPdfNotes={handleOpenPdfNotes}
+            onOpenMindmap={handleOpenMindmap}
+          />
+        )}
 
-      {activeView === 'detail' && (
-        <TopicDetailPage
-          section={currentSection}
-          onBack={handleBackToTopics}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          matchedIds={matchedIds}
-        />
-      )}
+        {/* Stage 2: In-Browser PDF Notes matching exact design */}
+        {activeView === 'pdf' && (
+          <PdfNotesPage onBackToHome={handleBackToHome} />
+        )}
+
+        {/* Stage 3: Mindmap Explorer Page (Matching exact layout and design system) */}
+        {activeView === 'mindmap' && (
+          <MindMapExplorerPage
+            onSelectTopic={handleSelectTopic}
+            onBackToHome={handleBackToHome}
+          />
+        )}
+
+        {/* Stage 4: Topics Selection Page */}
+        {activeView === 'topics' && (
+          <TopicSelectionPage
+            category={selectedCategory}
+            sections={mindmapData.sections}
+            onSelectTopic={handleSelectTopic}
+            onBackToCategories={handleBackToCategories}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            matchedIds={matchedIds}
+          />
+        )}
+
+        {/* Stage 5: Topic Detail / Interactive MindMap Canvas */}
+        {activeView === 'detail' && (
+          <TopicDetailPage
+            section={currentSection}
+            onBack={handleBackToTopics}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            matchedIds={matchedIds}
+          />
+        )}
+      </main>
+
+      {/* Info Modals */}
+      <AboutModal isOpen={showAboutModal} onClose={() => setShowAboutModal(false)} />
+      <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
     </div>
   );
 }

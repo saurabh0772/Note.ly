@@ -1,4 +1,4 @@
-# Note.ly — Interactive Developer Documentation Suite
+# Note.ly — Interactive Developer Architecture & Knowledge Suite
 
 <p align="center">
   <img src="public/favicon.svg" alt="Note.ly Logo" width="100" height="100" />
@@ -9,28 +9,77 @@
 </h3>
 
 <p align="center">
-  A high-fidelity, interactive 3-tier visual documentation platform that turns complex backend architecture infographics into clean, responsive developer mindmaps with live code snippets, copy buttons, flow diagrams, and protected analytics.
+  A high-fidelity developer learning platform combining <b>High-Scale System Design PDF Notes</b> with <b>Interactive Architectural Mindmaps</b>, in-browser document readers, live code snippets, mental models, and real-time analytics.
 </p>
 
 ---
 
 ## 🌟 Key Features
 
-- **3-Tier Navigation Architecture**:
-  - **Stage 1 (Home Landing Page)**: Displays Category Cards only (`Async Fundamentals`, `Core Modules`, `Express.js Framework`, `MongoDB & Mongoose`, `Authentication & Authorization`).
-  - **Stage 2 (Category View)**: Displays the grid of mindmap topic cards belonging to the selected category with a `← Back to Categories` button.
-  - **Stage 3 (Topic Detail View)**: Displays the multi-column block grid layout with code blocks, API tables, flow diagrams, and pros/cons tables.
-- **URL Hash Routing & Browser History**:
-  - Full support for browser back/forward buttons and mousepad/touchpad swipe-back gestures (`#/`, `#/category/:id`, `#/topic/:id`, `#/admin`).
-  - Direct deep linking and bookmarking for all 24 topics.
-- **Global & Local Search**:
-  - Real-time search engine with keyword highlighting across all 24 topics, code blocks, signatures, and methods.
-- **1-Click Copy-to-Clipboard**:
-  - Custom tokenized syntax highlighting for JavaScript code blocks with one-click copy buttons.
-- **Private Admin Analytics Dashboard**:
-  - Protected admin portal for owner analytics with JWT authentication, visitor tracking, search analytics, and activity charts.
-- **Zero Horizontal Overflow**:
-  - Built with responsive Tailwind CSS containers (`max-w-7xl`, `overflow-x: hidden`), ensuring zero horizontal scroll across desktop, tablet, and mobile screens.
+### 1. Modern Aesthetic Landing Page
+- **Hero & Learning Companion**:
+  - Centered badge: `✦ Your Learning Companion`.
+  - Headline: `Welcome to Notely` with vibrant indigo gradient typography.
+  - Subtitle: *"Turn your practice into lasting knowledge. Choose how you want to explore your notes and start learning."*
+- **Dual 3D Action Cards**:
+  - **PDF Notes Card**: Soft lavender card featuring a 3D document illustration with a red `PDF` badge and **"Open PDF Notes →"** button.
+  - **MindMap Card**: Soft mint green card featuring a 3D multi-node mindmap graphic and **"Open MindMap →"** button.
+- **Handwritten Doodle Annotations & Ambient Decor**:
+  - Script annotations (*"Study Smarter Not Harder!"*, *"Visualize Connect Remember"*, *"Small Steps Big Progress ♡"*) with curved pointer arrows.
+  - Potted houseplant with stacked pastel books (*"Same Notes"*, *"Better Understanding"*, *"Brighter You"*).
+  - Takeaway coffee cup with cardboard sleeve (*"Good Ideas Take Time ..."*).
+- **Feature Highlights Row**:
+  - ⚡ **Structured Learning** / *Well organized notes*
+  - 🎯 **Concept Clarity** / *Simple explanations*
+  - 📊 **Better Retention** / *Visual learning*
+  - 👥 **Build Confidence** / *Practice with purpose*
+
+---
+
+### 2. PDF Notes Explorer & In-Browser Reader
+- **Dynamic Category Navigation**:
+  - Discovers folders directly from `src/pdfContent/` (e.g. `High Level System Design`).
+  - Displays folder names with dynamic document count badges.
+  - Automatically picks up any new subfolders and files added to `src/pdfContent/`.
+- **Exact PDF Filenames & Metadata**:
+  - Displays exact filenames (e.g. `01-System Design - Monolith and Microservices.pdf`, `02-System Design - API Gateway and Load Balancers.pdf`).
+  - Metadata badges for file size, page count, and red PDF icon.
+- **In-Browser Responsive PDF Reader**:
+  - Embedded viewer rendered directly inside the browser using native PDF streaming (`#view=FitH&toolbar=1`).
+  - Controls toolbar: **Fullscreen Mode** toggle, **Open in New Tab** (`ExternalLink`), **Download PDF** (`Download`), and **Close (X)**.
+- **Header Doodle & Signature Quote**:
+  - Category banner with *"Read Learn Apply Grow"* handwritten doodle.
+  - Signature quote bar: *"Good notes today, a better developer tomorrow. — Notely ♡"*.
+
+---
+
+### 3. Open MindMap Explorer
+- **Unified Two-Column Sidebar Layout**:
+  - Left sidebar with category navigation:
+    - *Async Fundamentals* (3 Topics)
+    - *Core Modules* (3 Topics)
+    - *Express.js Framework* (6 Topics)
+    - *MongoDB & Mongoose* (6 Topics)
+    - *Authentication & Authorization* (6 Topics)
+  - Sidebar bottom motivational card: *"Small steps lead to big progress. Keep learning! ♡"*.
+- **Category Banner & Doodles**:
+  - Category description, topic count pill, and concept tag chips.
+  - Hand-drawn doodle annotation: *"Visualize Connect Remember"*.
+- **Topic Cards & Interactive Canvas**:
+  - Topic cards with block counts, descriptions, and **"Explore MindMap →"** buttons.
+  - Seamless transition to the full interactive canvas (`TopicDetailPage`) with zoomable nodes, code blocks, and mental models.
+
+---
+
+### 4. Universal Top Navigation Bar
+- **Branding**: Stylized blue open book logo, `Notely` title, and subtitle *"Learn · Build · Remember"*.
+- **Navigation Links**:
+  - `Home` (direct link to landing page)
+  - `Topics` (direct link to MindMap explorer)
+  - `About` (interactive modal with Notely overview)
+  - `Contact` (interactive modal with contact information)
+- **Quick Search Bar**: `Search notes... [⌘ K]` input.
+- **Controls**: Circular theme toggle button and user avatar `S`.
 
 ---
 
@@ -78,8 +127,8 @@
 - **Backend / API**: Express 5, Node.js (Vercel Serverless Function entry point in `api/index.js`)
 - **Database & ODM**: MongoDB, Mongoose ODM
 - **Authentication**: JSON Web Tokens (`jsonwebtoken`), `bcryptjs`, Cookie Parser
-- **Icons & Charts**: Lucide React, Recharts
-- **Typography**: Inter & Fira Code (Google Fonts)
+- **Icons & Visuals**: Lucide React, Recharts
+- **Typography**: Inter, Caveat (Handwritten Doodles), Fira Code (Google Fonts)
 
 ---
 
@@ -121,36 +170,47 @@ npm run build
 ```text
 Notes/
 ├── api/
-│   └── index.js                      # Vercel Serverless Function entry point
+│   └── index.js                          # Vercel Serverless Function entry point
 ├── server/
-│   ├── index.js                      # Express Server & MongoDB Connection
-│   ├── models/                       # Mongoose Schemas (Admin, AnalyticsEvent)
-│   ├── routes/                       # Express Route Handlers (adminAuth, admin, events)
-│   └── middleware/                   # JWT Auth & Validation Middleware
+│   ├── index.js                          # Express Server & MongoDB Connection
+│   ├── models/                           # Mongoose Schemas (Admin, AnalyticsEvent)
+│   ├── routes/                           # Express Route Handlers (adminAuth, admin, events)
+│   └── middleware/                       # JWT Auth & Validation Middleware
 ├── src/
 │   ├── components/
-│   │   ├── Logo.jsx                  # Note.ly Brand Logo Component
-│   │   ├── CategorySelectionPage.jsx # Stage 1 Landing Page (5 Categories)
-│   │   ├── TopicSelectionPage.jsx    # Stage 2 Category Topic Grid
-│   │   ├── TopicDetailPage.jsx       # Stage 3 Topic Detail View
-│   │   ├── BlockCard.jsx             # Card renderer for code, tables & flows
-│   │   ├── CodeBlock.jsx             # Tokenized Syntax Highlighter & Copy Button
-│   │   └── admin/                    # Admin Dashboard Components & Analytics Tabs
-│   ├── context/
-│   │   └── AdminAuthContext.jsx      # Admin Auth Context Controller
+│   │   ├── Navbar.jsx                    # Universal Top Navigation Bar with Search
+│   │   ├── NotelyLandingHome.jsx         # Exact Landing Home Page with 3D Action Cards
+│   │   ├── PdfNotesPage.jsx              # PDF Notes Explorer with In-Browser Reader
+│   │   ├── MindMapExplorerPage.jsx       # MindMap Explorer with Matching Sidebar Layout
+│   │   ├── TopicDetailPage.jsx           # Interactive MindMap Canvas View
+│   │   ├── TopicSelectionPage.jsx        # Category Topic Grid
+│   │   ├── CategorySelectionPage.jsx     # Legacy Category Explorer
+│   │   ├── BlockCard.jsx                 # Node Block Card Renderer
+│   │   ├── CodeBlock.jsx                 # Syntax Highlighter & Copy Button
+│   │   ├── InfoModals.jsx                # About & Contact Interactive Modals
+│   │   ├── Logo.jsx                      # Note.ly Logo
+│   │   └── admin/                        # Admin Dashboard & Analytics Tabs
 │   ├── data/
-│   │   ├── asyncData.js              # Category 01 Data
-│   │   ├── coreModulesData.js        # Category 02 Data
-│   │   ├── expressData.js            # Category 03 Data
-│   │   ├── mongodbData.js            # Category 04 Data
-│   │   ├── authenticationAuthorizationData.js # Category 05 Data
-│   │   └── mindmapData.js            # Central Data Aggregator (24 Topics)
+│   │   ├── pdfNotesData.js               # Dynamic PDF Content Scanner & Metadata
+│   │   ├── mindmapData.js                # Mindmap Aggregator (24 Topics)
+│   │   ├── asyncData.js                  # Category 01 Data
+│   │   ├── coreModulesData.js            # Category 02 Data
+│   │   ├── expressData.js                # Category 03 Data
+│   │   ├── mongodbData.js                # Category 04 Data
+│   │   └── authenticationAuthorizationData.js # Category 05 Data
+│   ├── pdfContent/
+│   │   └── High Level System Design/     # Real PDF Storage Directory
+│   │       ├── 01-System Design - Monolith and Microservices.pdf
+│   │       └── 02-System Design - API Gateway and Load Balancers.pdf
 │   ├── utils/
-│   │   └── analytics.js              # Client Event Tracker Utility
-│   ├── App.jsx                       # Main Hash Router & View Controller
-│   ├── main.jsx                      # React Entry Point
-│   └── index.css                     # Tailwind CSS & Global Styles
-├── vercel.json                       # Vercel Serverless Rewrites & Routing
+│   │   └── analytics.js                  # Client Event Tracker Utility
+│   ├── App.jsx                           # Hash Router & State Controller
+│   ├── main.jsx                          # React Entry Point
+│   └── index.css                         # Tailwind CSS & Global Styles
+├── public/
+│   ├── pdfContent/                       # Static Assets Mirror for Direct URL Access
+│   └── favicon.svg
+├── vercel.json                           # Vercel Serverless Rewrites & Routing
 ├── package.json
 └── README.md
 ```
@@ -160,4 +220,3 @@ Notes/
 <p align="center">
   Designed & Built with ❤️ for Developers • <b>Note.ly</b>
 </p>
-

@@ -21,6 +21,10 @@
   code, pre {
     font-family: 'Fira Code', 'Courier New', Courier, monospace;
   }
+
+  .font-caveat {
+    font-family: 'Caveat', cursive;
+  }
 }
 
 /* Card Glow when matched by search */
