@@ -210,7 +210,7 @@ Notes/
 │   └── index.css                         # Tailwind CSS & Global Styles
 ├── public/
 │   ├── pdfContent/                       # Static Assets Mirror for Direct URL Access
-│   └── favicon.svg
+│   └── favicon.svg                       # Official Notely SVG Logo & Favicon
 ├── vercel.json                           # Vercel Serverless Rewrites & Routing
 ├── package.json
 └── README.md

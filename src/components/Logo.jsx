@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function Logo({ size = 'md', showText = true }) {
   const iconSizes = {
-    sm: 'w-6 h-6',
-    md: 'w-8 h-8',
-    lg: 'w-10 h-10'
+    sm: 'w-7 h-7',
+    md: 'w-9 h-9',
+    lg: 'w-12 h-12'
   };
 
   const textSizes = {
@@ -14,23 +14,33 @@ export default function Logo({ size = 'md', showText = true }) {
   };
 
   return (
-    <div className="inline-flex items-center gap-2.5 selection:bg-none">
-      {/* Brand Icon SVG */}
-      <div className={`relative ${iconSizes[size]} shrink-0`}>
-        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-sm">
-          <rect width="100" height="100" rx="28" fill="#0F172A" />
-          <path d="M30 35L50 25L70 35L50 50Z" fill="#10B981" />
-          <path d="M30 35L30 60L50 75L50 50Z" fill="#059669" opacity="0.8" />
-          <path d="M70 35L70 60L50 75L50 50Z" fill="#34D399" opacity="0.95" />
-          <circle cx="76" cy="24" r="8" fill="#34D399" />
-          <circle cx="76" cy="24" r="4" fill="#FFFFFF" />
+    <div className="inline-flex items-center gap-2.5 select-none">
+      {/* Brand Icon SVG: Stylized Blue Open Book */}
+      <div className={`relative ${iconSizes[size]} shrink-0 flex items-center justify-center text-blue-600`}>
+        <svg
+          viewBox="0 0 48 48"
+          className="w-full h-full fill-none stroke-current stroke-[2.5]"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {/* Book Spine & Left Page */}
+          <path d="M24 38V12C21 9 15 9 8 11V37C15 35 21 35 24 38Z" fill="#3B82F6" stroke="#2563EB" />
+          {/* Right Page */}
+          <path d="M24 38V12C27 9 33 9 40 11V37C33 35 27 35 24 38Z" fill="#3B82F6" stroke="#2563EB" />
+          {/* Book Lines / Emboss */}
+          <line x1="12" y1="20" x2="20" y2="18.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="12" y1="26" x2="20" y2="24.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="28" y1="18.5" x2="36" y2="20" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="28" y1="24.5" x2="36" y2="26" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          {/* Bookmark / Ribbon */}
+          <path d="M24 12V24L21 21.5L18 24V10.5" fill="#93C5FD" stroke="#1D4ED8" strokeWidth="1.5" />
         </svg>
       </div>
 
       {/* Brand Text */}
       {showText && (
         <span className={`font-black tracking-tight text-slate-900 ${textSizes[size]}`}>
-          Note<span className="text-emerald-500">.ly</span>
+          Note<span className="text-blue-600">.ly</span>
         </span>
       )}
     </div>

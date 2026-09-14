@@ -107,7 +107,7 @@ export default function CategorySelectionPage({
       )}
       {/* Top Hero Banner */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 bg-emerald-100/80 text-emerald-900 px-4 py-1.5 rounded-full text-xs font-extrabold border border-emerald-200 mb-5 shadow-2xs">
+        <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-900 px-4 py-1.5 rounded-full text-xs font-extrabold border border-indigo-200 mb-5 shadow-2xs">
           <Logo size="sm" showText={false} />
           <span>Note.ly • Developer Architecture Suite</span>
         </div>
