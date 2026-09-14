@@ -42,7 +42,7 @@
   - Displays folder names with dynamic document count badges.
   - Automatically picks up any new subfolders and files added to `src/pdfContent/`.
 - **Exact PDF Filenames & Metadata**:
-  - Displays exact filenames (e.g. `01-System Design - Monolith and Microservices.pdf`, `02-System Design - API Gateway and Load Balancers.pdf`).
+  - Displays exact filenames (e.g. `01-System Design - Monolith and Microservices.pdf`, `02-System Design - API Gateway and Load Balancers.pdf`, `03-System Design - Proxy and Networking Protocols.pdf`).
   - Metadata badges for file size, page count, and red PDF icon.
 - **In-Browser Responsive PDF Reader**:
   - Embedded viewer rendered directly inside the browser using native PDF streaming (`#view=FitH&toolbar=1`).
@@ -201,7 +201,8 @@ Notes/
 │   ├── pdfContent/
 │   │   └── High Level System Design/     # Real PDF Storage Directory
 │   │       ├── 01-System Design - Monolith and Microservices.pdf
-│   │       └── 02-System Design - API Gateway and Load Balancers.pdf
+│   │       ├── 02-System Design - API Gateway and Load Balancers.pdf
+│   │       └── 03-System Design - Proxy and Networking Protocols.pdf
 │   ├── utils/
 │   │   └── analytics.js                  # Client Event Tracker Utility
 │   ├── App.jsx                           # Hash Router & State Controller

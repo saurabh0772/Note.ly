@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default function Navbar({ activeNav = 'home', onNavigate }) {
   return (
@@ -104,15 +104,6 @@ export default function Navbar({ activeNav = 'home', onNavigate }) {
               ⌘ K
             </div>
           </div>
-
-          {/* Theme Toggle Sun Icon */}
-          <button
-            type="button"
-            className="w-9 h-9 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center transition-all shadow-2xs cursor-pointer"
-            title="Toggle Theme"
-          >
-            <Sun className="w-4 h-4" />
-          </button>
 
           {/* User Profile Avatar "S" */}
           <div

@@ -22,8 +22,12 @@ import { pdfCategories } from '../data/pdfNotesData';
 
 export default function PdfNotesView({ onBackToHome }) {
   // Currently we focus on the System Design category
-  const systemDesignCategory = pdfCategories[0];
-  const [selectedDocId, setSelectedDocId] = useState(systemDesignCategory.documents[0].id);
+  const systemDesignCategory =
+    pdfCategories.find((c) => c.title.toLowerCase().includes('system design')) ||
+    pdfCategories[0] || { documents: [] };
+  const [selectedDocId, setSelectedDocId] = useState(
+    systemDesignCategory.documents[0]?.id || ''
+  );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showDocInfo, setShowDocInfo] = useState(true);
@@ -54,7 +58,10 @@ export default function PdfNotesView({ onBackToHome }) {
   const activeDocIndex = systemDesignCategory.documents.findIndex(
     (doc) => doc.id === selectedDocId
   );
-  const activeDoc = systemDesignCategory.documents[activeDocIndex] || systemDesignCategory.documents[0];
+  const activeDoc =
+    (activeDocIndex >= 0 ? systemDesignCategory.documents[activeDocIndex] : null) ||
+    systemDesignCategory.documents[0] ||
+    {};
 
   const handleSelectDoc = (docId) => {
     setSelectedDocId(docId);
@@ -377,7 +384,7 @@ export default function PdfNotesView({ onBackToHome }) {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800">
-                  System Design Note 0{activeDoc.number}
+                  System Design Note {String(activeDoc.number || 1).padStart(2, '0')}
                 </span>
                 <span className="text-xs font-bold text-slate-400">•</span>
                 <span className="text-xs text-slate-500 font-semibold">
@@ -397,7 +404,7 @@ export default function PdfNotesView({ onBackToHome }) {
 
               {/* Tags */}
               <div className="flex flex-wrap gap-1.5 mt-4">
-                {activeDoc.tags.map((tag, idx) => (
+                {(activeDoc.tags || []).map((tag, idx) => (
                   <span
                     key={idx}
                     className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 font-semibold border border-slate-200"
@@ -415,7 +422,7 @@ export default function PdfNotesView({ onBackToHome }) {
                 <span>Core Topics Inside</span>
               </div>
               <ul className="space-y-2">
-                {activeDoc.topics.map((t, idx) => (
+                {(activeDoc.topics || []).map((t, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-xs text-slate-600 font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-1.5 shrink-0" />
                     <span>{t}</span>

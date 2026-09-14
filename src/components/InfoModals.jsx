@@ -9,7 +9,7 @@ export function AboutModal({ isOpen, onClose }) {
       <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in zoom-in-95 duration-200">
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition-colors"
+          className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -36,7 +36,7 @@ export function AboutModal({ isOpen, onClose }) {
             <span>Core Pillars:</span>
           </div>
           <div className="text-xs text-slate-500 pl-6 space-y-1">
-            <p>• System Design illustrated PDF guides (Monolith, Microservices, API Gateway, Load Balancers)</p>
+            <p>• System Design illustrated PDF guides (Monoliths, Microservices, Load Balancers, Proxies & Protocols)</p>
             <p>• 24 Deep Dive Mindmap topics with interactive node graphs</p>
             <p>• Completely open, client-side, fast and distraction-free</p>
           </div>
@@ -61,7 +61,7 @@ export function ContactModal({ isOpen, onClose }) {
       <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in zoom-in-95 duration-200">
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition-colors"
+          className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -82,19 +82,33 @@ export function ContactModal({ isOpen, onClose }) {
         </p>
 
         <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-            <Mail className="w-4 h-4 text-indigo-500" />
-            <span className="text-xs font-semibold text-slate-700">support@notely.dev</span>
-          </div>
-          <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-            <Github className="w-4 h-4 text-slate-700" />
-            <span className="text-xs font-semibold text-slate-700">github.com/saurabh0772/Note.ly</span>
-          </div>
+          <a
+            href="mailto:krsaurabh0772@gmail.com"
+            className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:border-indigo-300 hover:bg-indigo-50/50 transition-all group cursor-pointer"
+            title="Send email to krsaurabh0772@gmail.com"
+          >
+            <Mail className="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold text-slate-700 group-hover:text-indigo-600 transition-colors">
+              krsaurabh0772@gmail.com
+            </span>
+          </a>
+          <a
+            href="https://github.com/saurabh0772/Note.ly"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:border-indigo-300 hover:bg-indigo-50/50 transition-all group cursor-pointer"
+            title="Visit Note.ly GitHub repository"
+          >
+            <Github className="w-4 h-4 text-slate-700 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold text-slate-700 group-hover:text-indigo-600 transition-colors">
+              github.com/saurabh0772/Note.ly
+            </span>
+          </a>
         </div>
 
         <button
           onClick={onClose}
-          className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all cursor-pointer"
+          className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all cursor-pointer shadow-md"
         >
           Close
         </button>

@@ -19,6 +19,16 @@ export default function App() {
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
 
+  // Always keep in light mode
+  useEffect(() => {
+    document.documentElement.classList.remove('dark');
+    try {
+      localStorage.removeItem('notely-theme');
+    } catch (e) {
+      // ignore
+    }
+  }, []);
+
   // Synchronize component state with window.location.hash
   const syncStateFromHash = () => {
     const hash = window.location.hash; // e.g. '#/', '#/pdf-notes', '#/mindmap', '#/category/express', '#/topic/sec-14', '#/admin'
